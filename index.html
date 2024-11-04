@@ -1,0 +1,92 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>GIS System</title>
+   
+   <!-- Leaflet 및 Leaflet Draw 스타일 추가 -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet-measure/dist/leaflet-measure.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+   <link rel="stylesheet" href="gis.css" />
+</head>
+<body>
+   <div id="topMenu">
+      <div class="button-container">
+         <button onclick="openCoordinatePopup()">좌표 검색</button>
+         <button onclick="openFilterPopup()">필터링</button>
+         <button onclick="openOpacityPopup()">투명도 조절</button>
+         <button onclick="openGeocodePopup()">주소 검색</button>
+         <button id="weatherToggleButton" onclick="toggleWeather()">날씨 표시</button>
+      </div>
+   </div>
+
+   <div id="map"></div> <!-- 지도를 표시할 공간 -->
+
+   <!-- 필터링 팝업창 -->
+   <div id="filterPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:2000;">
+      <h3>필터링 기능</h3>
+      <label for="filterInput">Filter by Name:</label>
+      <input type="text" id="filterInput" placeholder="Enter name">
+      <button onclick="applyFilter()">Apply Filter</button>
+      <button onclick="closeFilterPopup()">닫기</button>
+   </div>
+
+   <!-- 좌표 입력 팝업창 HTML -->
+   <div id="coordinatePopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+      <h3>좌표 검색</h3>
+      <label for="latitude">위도:</label>
+      <input type="text" id="latitude" placeholder="위도 입력" /><br><br>
+      <label for="longitude">경도:</label>
+      <input type="text" id="longitude" placeholder="경도 입력" /><br><br>
+      <button onclick="searchByCoordinates()">검색</button>
+      <button onclick="closeCoordinatePopup()">닫기</button>
+   </div>
+
+   <!-- 투명도 조절 팝업 -->
+   <div id="opacityPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:2000;">
+      <h3>레이어 투명도 조절</h3>
+      <div>
+          <label for="streetLayerOpacity">Street Map</label>
+          <input type="range" id="streetLayerOpacity" min="0" max="1" step="0.1" value="1" onchange="setLayerOpacity('streetLayer', this.value)">
+      </div>
+      <div>
+          <label for="satelliteLayerOpacity">Satellite Map</label>
+          <input type="range" id="satelliteLayerOpacity" min="0" max="1" step="0.1" value="1" onchange="setLayerOpacity('satelliteLayer', this.value)">
+      </div>
+      <div>
+          <label for="terrainLayerOpacity">Terrain Map</label>
+          <input type="range" id="terrainLayerOpacity" min="0" max="1" step="0.1" value="1" onchange="setLayerOpacity('terrainLayer', this.value)">
+      </div>
+      <div>
+          <label for="hillshadeLayerOpacity">Hillshade Map</label>
+          <input type="range" id="hillshadeLayerOpacity" min="0" max="1" step="0.1" value="1" onchange="setLayerOpacity('hillshadeLayer', this.value)">
+      </div>
+      <button onclick="closeOpacityPopup()">닫기</button>
+   </div>
+
+   <!-- 주소 검색 팝업창 -->
+   <div id="geocodePopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:2000;">
+      <h3>주소 검색</h3>
+      <input type="text" id="addressInput" placeholder="주소 입력" style="width:100%; margin-bottom:10px;">
+      <button onclick="geocodeAddress()">검색</button>
+      <button onclick="closeGeocodePopup()">닫기</button>
+   </div>
+
+   <!-- Leaflet 라이브러리 및 플러그인 스크립트 추가 -->
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+   <script src="https://unpkg.com/leaflet-measure/dist/leaflet-measure.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+   <!-- 자바스크립트 코드가 담길 main.js 파일 추가 -->
+   <script src="main.js"></script>
+   <script src="coordinatePopUp.js"></script>
+   <script src="FilterPopUp.js"></script>
+   <script src="locationUpdate.js"></script>
+   <script src="opacityControl.js"></script>
+   <script src="geocoding.js"></script>
+   <script src="weather.js"></script>
+   <script src="overlayControl.js"></script>
+</body>
+</html>
