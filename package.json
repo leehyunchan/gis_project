@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cesium": "^1.123.1",
     "leaflet": "^1.9.4",
     "leaflet-draw": "^1.0.4",
     "ws": "^8.18.0"
