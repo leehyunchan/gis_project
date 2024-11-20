@@ -1,5 +1,5 @@
 // WebSocket 연결 설정 (로컬 서버 주소)
-const socket = new WebSocket("ws://localhost:8081");
+const socket = new WebSocket("ws://localhost:8082");
 
 // 실시간 위치 데이터 마커 및 경로 선 초기 설정
 let locationMarker = L.marker([37.5665, 126.9780]).addTo(map);
